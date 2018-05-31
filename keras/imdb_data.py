@@ -1,4 +1,7 @@
 from keras.datasets import imdb
+from keras import models
+from keras import layers
+from keras import optimizers
 import numpy as np
 
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=10000)
@@ -10,6 +13,17 @@ y_train = np.asarray(train_labels).astyoe('float32')  # Vectorize training data.
 y_test = np.asarray(test_labels).astype('float32')    # Vectorize LABELS
 
 # Data now ready to be fed into a network...create this network!
+# MODEL + LAYERz
+model = models.Sequential()
+model.add(layers.Dense(16, activation='relu', input_shape=(10000,)))
+model.add(layers.Dense(16, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
+
+model.compile(optimizer=optimizers.RMSprop(lr=0.001),
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+
+model.fit()
 
 # Net needs tensors...
 def vectorize_sequences(sequences, dimension=10000):
