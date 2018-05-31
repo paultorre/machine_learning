@@ -23,7 +23,10 @@ model.compile(optimizer=optimizers.RMSprop(lr=0.001),
               loss='binary_crossentropy',
               metrics=['accuracy'])
 
-model.fit()
+model.fit(x_train, y_train, epochs=4, batch_size=512)
+results = model.evaluate(x_test, y_test)
+
+print(results)
 
 # Net needs tensors...
 def vectorize_sequences(sequences, dimension=10000):
